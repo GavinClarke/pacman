@@ -17,4 +17,10 @@ public class Actions {
 		return game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost), game.getPacmanCurrentNodeIndex(), DM.PATH);
 	}
 	
+	public MOVE TOTHEPILLS(GHOST ghost,Game game)
+	{
+		//getActivePowerPillsIndices()
+		int i[] = game.getPowerPillIndices();
+		return game.getMoveToMakeToReachDirectNeighbour(game.getGhostCurrentNodeIndex(ghost),i[0]);
+	}
 }

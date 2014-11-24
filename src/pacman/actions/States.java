@@ -21,9 +21,12 @@ public class States {
 	
 	Object obj;
 	
+	Class[] paramString = new Class[2];	
+	Class noparams[] = {};
+	Class cls;
 	public States(/*String [] act, String [] eve*/) 
 	{
-		actions = new String [1/*act.length*/];
+		actions = new String [2/*act.length*/];
 		/*for(int i =0; i < act.length;i++)
 		{
 			actions[i] = act[i];
@@ -35,26 +38,38 @@ public class States {
 			events[i] = eve[i];
 		}*/
 		
-		
-		actions[0] = "Hunt";
+		events[0] = "ISGHOSTEDIBLE";
+		actions[0] = "TOTHEPILLS";
+		actions[1] = "Hunt";
+		paramString[0] = GHOST.class;
+		paramString[1] = Game.class;
 		//method.invoke (objectToInvokeOn);
 	}
 	
 	public MOVE update(Game game,GHOST ghost) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException 
 	{
-		Class noparams[] = {};
-		Class[] paramString = new Class[2];	
-		paramString[0] = GHOST.class;
-		paramString[1] = Game.class;
-		Class cls;
-		String st = "Actions";
-		cls = Actions.class;
-		Object obj = cls.newInstance();
-			 
-		//call the printIt method
-		method = cls.getDeclaredMethod(actions[0], paramString);
-		Object hello = method.invoke(obj, ghost,game);
+		Object hello;
+		
+		cls = Events.class;
+		obj = cls.newInstance();
+		method = cls.getDeclaredMethod(events[0], paramString);
+		 
+		if((boolean)(method.invoke(obj, ghost,game)))
+		{
+			cls = Actions.class;
+			obj = cls.newInstance();
+			method = cls.getDeclaredMethod(actions[0], paramString);
+			hello = method.invoke(obj, ghost,game);
+		}
+		else
+		{
+			cls = Actions.class;
+			obj = cls.newInstance();
+			method = cls.getDeclaredMethod(actions[1], paramString);
+			hello = method.invoke(obj, ghost,game);
+		}
 		return (MOVE)hello;
 	}
+	
 	
 }
