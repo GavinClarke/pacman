@@ -5,8 +5,8 @@ import java.lang.reflect.InvocationTargetException;
 import pacman.actions.Actions;
 import pacman.actions.Events;
 import pacman.actions.States;
-
-
+import static pacman.game.Constants.*;
+import pacman.game.Game;
 
 
 public class FSM {
@@ -17,8 +17,16 @@ public class FSM {
 	
 	public FSM()
 	{
+		state = new States();	
+	}
+	
+	
+	
+	public MOVE CheckEvent(Game game,GHOST ghost)
+	{
+		MOVE i = null;
 		try {
-			state = new States();
+			i = state.update(game,ghost);
 		} catch (InstantiationException | IllegalAccessException
 				| IllegalArgumentException | InvocationTargetException
 				| NoSuchMethodException | SecurityException
@@ -26,14 +34,7 @@ public class FSM {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-	}
-	
-	
-	
-	public void CheckEvent()
-	{
-		
+		return i;
 	}
 	
 	

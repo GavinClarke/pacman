@@ -1,5 +1,10 @@
 package pacman.actions;
 
+import pacman.game.Constants.MOVE;
+import static pacman.game.Constants.*;
+import pacman.game.Game;
+
+
 public class Actions {
 
 	public Actions()
@@ -7,10 +12,9 @@ public class Actions {
 		
 	}
 	
-	public void first()
+	public MOVE Hunt(GHOST ghost,Game game)
 	{
-		int i = 2+2;
-		int j =i;
+		return game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost), game.getPacmanCurrentNodeIndex(), DM.PATH);
 	}
 	
 }

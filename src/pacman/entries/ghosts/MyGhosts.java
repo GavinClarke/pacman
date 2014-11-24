@@ -33,7 +33,8 @@ public class MyGhosts extends Controller<EnumMap<GHOST,MOVE>>
 		for(GHOST ghost : GHOST.values())
 		{
 			game.isPowerPillStillAvailable(0);
-			myMoves.put(ghost,game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost), game.getPowerPillIndex(0), DM.PATH));
+			myMoves.put(ghost,states.CheckEvent(game,ghost));
+			//myMoves.put(ghost,game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost), game.getPowerPillIndex(0), DM.PATH));
 			//myMoves.put(ghost,game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost), game.getPacmanCurrentNodeIndex(), DM.PATH));
 		}
 		//myMoves.put(ghost,game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost), game.getNeighbouringNodes(game.getPacmanCurrentNodeIndex())[0], DM.PATH));
