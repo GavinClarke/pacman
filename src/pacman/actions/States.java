@@ -6,11 +6,12 @@ import java.util.Map.Entry;
 import pacman.game.Constants.MOVE;
 import static pacman.game.Constants.*;
 import pacman.game.Game;
+import pacman.Executor;
 
 public class States {
 
 	java.lang.reflect.Method method;
-	
+	java.lang.reflect.Method actionTest;
 	String state;
 	
 	Actions action;
@@ -18,12 +19,12 @@ public class States {
 	
 	Events event;
 	String [] events;
-	
+	String [] states;
 	Object obj;
 	
 	Class[] paramString = new Class[2];	
 	Class noparams[] = {};
-	Class cls;
+	Class<?> cls;
 	public States(/*String [] act, String [] eve*/) 
 	{
 		actions = new String [2/*act.length*/];
@@ -39,8 +40,8 @@ public class States {
 		}*/
 		
 		events[0] = "ISGHOSTEDIBLE";
-		actions[0] = "TOTHEPILLS";
-		actions[1] = "Hunt";
+		actions[0] = "HUNT";
+		actions[1] = "TOTHEPILLS";
 		paramString[0] = GHOST.class;
 		paramString[1] = Game.class;
 		//method.invoke (objectToInvokeOn);
@@ -48,26 +49,36 @@ public class States {
 	
 	public MOVE update(Game game,GHOST ghost) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException 
 	{
-		Object hello;
+		Object hello = MOVE.UP;
 		
-		cls = Events.class;
-		obj = cls.newInstance();
-		method = cls.getDeclaredMethod(events[0], paramString);
-		 
-		if((boolean)(method.invoke(obj, ghost,game)))
+		
+		for(int i =0; i <1; i++)
 		{
-			cls = Actions.class;
+			cls = Events.class;
 			obj = cls.newInstance();
-			method = cls.getDeclaredMethod(actions[0], paramString);
-			hello = method.invoke(obj, ghost,game);
+			method = cls.getDeclaredMethod(events[i], paramString);
+			method.setAccessible(true);
+			if((boolean)(method.invoke(obj, ghost,game)))
+			{
+				cls = Actions.class;
+				obj = cls.newInstance();
+				method = cls.getDeclaredMethod(actions[i], paramString);
+				//method.setAccessible(true);
+				hello = method.invoke(obj, ghost,game);
+				if(GHOST.BLINKY == ghost)
+				{
+					//System.out.println(ghost.toString()+ " is Checking "+ actions[0] /*+ " this is its move " + hello.toString()*/);
+				}
+			}
 		}
-		else
+		/*else
 		{
 			cls = Actions.class;
 			obj = cls.newInstance();
 			method = cls.getDeclaredMethod(actions[1], paramString);
 			hello = method.invoke(obj, ghost,game);
-		}
+			System.out.println("Checking "+ actions[1]);
+		}*/
 		return (MOVE)hello;
 	}
 	

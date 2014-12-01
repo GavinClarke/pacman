@@ -9,6 +9,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.Random;
+
+import pacman.actions.Events;
 import pacman.controllers.Controller;
 import pacman.controllers.HumanController;
 import pacman.controllers.KeyBoardInput;
@@ -26,6 +28,7 @@ import pacman.entries.ghosts.MyGhosts;
 import pacman.entries.ghosts.RedGhost;
 import pacman.game.Game;
 import pacman.game.GameView;
+import pacman.game.Constants.GHOST;
 
 import static pacman.game.Constants.*;
 
@@ -46,7 +49,7 @@ public class Executor
 	public static void main(String[] args)
 	{
 		Executor exec=new Executor();
-
+		
 		/*
 		//run multiple games in batch mode - good for testing.
 		int numTrials=10;
@@ -63,7 +66,7 @@ public class Executor
 		///*
 		//run the game in asynchronous mode.
 		boolean visual=true;
-		
+
 		exec.runGameTimed(new HumanController(new KeyBoardInput()),new MyGhosts(),visual);
 		//exec.runGameTimed(new HumanController(new KeyBoardInput()),new RedGhost(),visual);
 //		exec.runGameTimed(new HumanController(new KeyBoardInput()),new StarterGhosts(),visual);	
@@ -85,6 +88,7 @@ public class Executor
 		//exec.replayGame(fileName,visual);
 		 */
 	}
+	
 	
     /**
      * For running multiple games without visuals. This is useful to get a good idea of how well a controller plays
