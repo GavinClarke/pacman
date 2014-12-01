@@ -5,7 +5,6 @@ import java.util.EnumMap;
 import pacman.game.Constants.DM;
 import pacman.game.Constants.GHOST;
 import pacman.game.Constants.MOVE;
-import static pacman.game.Constants.*;
 import pacman.game.Game;
 
 

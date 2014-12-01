@@ -1,11 +1,7 @@
 package pacman.entries.ghosts;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.EnumMap;
 import java.util.Map;
-
-import pacman.actions.Actions;
-import pacman.actions.Events;
 import pacman.actions.States;
 import static pacman.game.Constants.*;
 import pacman.game.Game;

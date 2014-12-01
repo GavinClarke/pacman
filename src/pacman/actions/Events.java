@@ -19,9 +19,19 @@ public class Events {
 			//NewState = state;
 			return true;
 		}
-		//NewState = "";
 		
 		return false;
+	}
+	
+	public boolean ISGHOSTNOTEDIBLE(GHOST ghost,Game game)
+	{
+		if(game.isGhostEdible(ghost) )
+		{
+			//NewState = state;
+			return false;
+		}
+		
+		return true;
 	}
 	
 	public String GetNewState()

@@ -1,25 +1,27 @@
 package pacman.actions;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.Map.Entry;
+import java.util.HashMap;
+import java.util.Map;
 
 import pacman.game.Constants.MOVE;
 import static pacman.game.Constants.*;
 import pacman.game.Game;
-import pacman.Executor;
 
 public class States {
 
 	java.lang.reflect.Method method;
 	java.lang.reflect.Method actionTest;
-	String state;
-	
+	int state;
+    String stat;
+	Map<String, Integer> stateNum;
+	String [] states;
 	Actions action;
 	String [] actions;
 	
 	Events event;
 	String [] events;
-	String [] states;
+	
 	Object obj;
 	
 	Class[] paramString = new Class[2];	
@@ -33,15 +35,23 @@ public class States {
 			actions[i] = act[i];
 		}*/
 		
-		events = new String[1/*eve.length*/];
+		events = new String[2/*eve.length*/];
 		/*for(int i =0; i < eve.length;i++)
 		{
 			events[i] = eve[i];
 		}*/
-		
+		state = 1;
+		stateNum = new HashMap<String, Integer>();
+		stateNum.put("hunt", 1);
+		stateNum.put("run", 0);
+		stat = "hunt";
+		states = new String[2];
+		states[0] = "run";
+		states[1] = "hunt";
 		events[0] = "ISGHOSTEDIBLE";
-		actions[0] = "HUNT";
-		actions[1] = "TOTHEPILLS";
+		events[1] = "ISGHOSTNOTEDIBLE";
+		actions[0] = "TOTHEPILLS";
+		actions[1] = "HUNT";
 		paramString[0] = GHOST.class;
 		paramString[1] = Game.class;
 		//method.invoke (objectToInvokeOn);
@@ -52,33 +62,25 @@ public class States {
 		Object hello = MOVE.UP;
 		
 		
-		for(int i =0; i <1; i++)
-		{
+		
 			cls = Events.class;
 			obj = cls.newInstance();
-			method = cls.getDeclaredMethod(events[i], paramString);
+			method = cls.getDeclaredMethod(events[state], paramString);
 			method.setAccessible(true);
-			if((boolean)(method.invoke(obj, ghost,game)))
-			{
-				cls = Actions.class;
-				obj = cls.newInstance();
-				method = cls.getDeclaredMethod(actions[i], paramString);
-				//method.setAccessible(true);
-				hello = method.invoke(obj, ghost,game);
-				if(GHOST.BLINKY == ghost)
-				{
-					//System.out.println(ghost.toString()+ " is Checking "+ actions[0] /*+ " this is its move " + hello.toString()*/);
-				}
-			}
-		}
-		/*else
+		if((boolean)(method.invoke(obj, ghost,game)))
 		{
 			cls = Actions.class;
 			obj = cls.newInstance();
-			method = cls.getDeclaredMethod(actions[1], paramString);
+			method = cls.getDeclaredMethod(actions[state], paramString);
+			//method.setAccessible(true);
 			hello = method.invoke(obj, ghost,game);
-			System.out.println("Checking "+ actions[1]);
-		}*/
+			System.out.println("state is " + states[state]);
+		}
+		else
+		{
+			state = stateNum.get(states[state]);
+			stat =states[state];
+		}
 		return (MOVE)hello;
 	}
 	
