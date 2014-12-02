@@ -28,7 +28,7 @@ public class Actions {
 	{
 		//getActivePowerPillsIndices()
 		int i[] = game.getPowerPillIndices();
-		return game.getMoveToMakeToReachDirectNeighbour(game.getGhostCurrentNodeIndex(ghost),i[0]);
+		return game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost),i[cornerAllocation.get(ghost)],DM.PATH);
 	}
 	
 	public MOVE RUN(GHOST ghost, Game game)

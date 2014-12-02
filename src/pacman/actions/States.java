@@ -14,13 +14,13 @@ public class States {
 	java.lang.reflect.Method actionTest;
 	int state;
     String stat;
-	Map<String, Integer> stateNum;
-	String [] states;
+	public Map<String, Integer> stateNum;
+	public String [] states;
 	Actions action;
-	String [] actions;
+	public String [] actions;
 	
 	Events event;
-	String [] events;
+	public String [] events;
 	
 	Object obj;
 	
@@ -48,10 +48,10 @@ public class States {
 		states = new String[2];
 		states[0] = "run";
 		states[1] = "hunt";
-		events[0] = "ISGHOSTEDIBLE";
-		events[1] = "ISGHOSTNOTEDIBLE";
-		actions[0] = "TOTHEPILLS";
-		actions[1] = "HUNT";
+		//events[0] = "ISGHOSTEDIBLE";
+		//events[1] = "ISGHOSTNOTEDIBLE";
+		//actions[0] = "TOTHEPILLS";
+		//actions[1] = "HUNT";
 		paramString[0] = GHOST.class;
 		paramString[1] = Game.class;
 		//method.invoke (objectToInvokeOn);
@@ -84,5 +84,10 @@ public class States {
 		return (MOVE)hello;
 	}
 	
+	public void SetCurrentState(int statee)
+	{
+		state = stateNum.get(states[statee]);
+		stat =states[state];
+	}
 	
 }
