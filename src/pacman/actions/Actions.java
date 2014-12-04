@@ -35,4 +35,10 @@ public class Actions {
 	{
 		return game.getApproximateNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost),game.getPowerPillIndices()[cornerAllocation.get(ghost)],game.getGhostLastMoveMade(ghost),DM.PATH);
 	}
+	
+	public MOVE TOLASTPILL(GHOST ghost, Game game)
+	{
+		int i[] = game.getActivePowerPillsIndices();
+		return game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost),i[0],DM.PATH);
+	}
 }
