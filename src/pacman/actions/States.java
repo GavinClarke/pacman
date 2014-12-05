@@ -3,6 +3,7 @@ package pacman.actions;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import pacman.game.Constants.MOVE;
 import static pacman.game.Constants.*;
@@ -13,8 +14,8 @@ public class States {
 	java.lang.reflect.Method method;
 	java.lang.reflect.Method actionTest;
 	int state;
-    String stat;
-	public Map<String, Integer> stateNum;
+    //String stat;
+	public TreeMap<String, Integer> stateNum;
 	public String [] states;
 	Actions action;
 	public String [] actions;
@@ -27,31 +28,9 @@ public class States {
 	Class[] paramString = new Class[2];	
 	Class noparams[] = {};
 	Class<?> cls;
-	public States(/*String [] act, String [] eve*/) 
+	public States() 
 	{
-		actions = new String [2/*act.length*/];
-		/*for(int i =0; i < act.length;i++)
-		{
-			actions[i] = act[i];
-		}*/
-		
-		events = new String[2/*eve.length*/];
-		/*for(int i =0; i < eve.length;i++)
-		{
-			events[i] = eve[i];
-		}*/
-		state = 1;
-		stateNum = new HashMap<String, Integer>();
-		stateNum.put("hunt", 1);
-		stateNum.put("run", 0);
-		stat = "hunt";
-		states = new String[2];
-		states[0] = "run";
-		states[1] = "hunt";
-		//events[0] = "ISGHOSTEDIBLE";
-		//events[1] = "ISGHOSTNOTEDIBLE";
-		//actions[0] = "TOTHEPILLS";
-		//actions[1] = "HUNT";
+		stateNum = new TreeMap<String, Integer>();
 		paramString[0] = GHOST.class;
 		paramString[1] = Game.class;
 		//method.invoke (objectToInvokeOn);
@@ -60,9 +39,6 @@ public class States {
 	public MOVE update(Game game,GHOST ghost) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException, ClassNotFoundException 
 	{
 		Object hello = MOVE.UP;
-		
-		
-		
 			cls = Events.class;
 			obj = cls.newInstance();
 			method = cls.getDeclaredMethod(events[state], paramString);
@@ -79,7 +55,6 @@ public class States {
 		else
 		{
 			state = stateNum.get(states[state]);
-			stat =states[state];
 		}
 		return (MOVE)hello;
 	}
@@ -87,7 +62,20 @@ public class States {
 	public void SetCurrentState(int statee)
 	{
 		state = stateNum.get(states[statee]);
-		stat =states[state];
 	}
+	
+	public void SetSize(int size)
+	{
+		states = new String[size];
+		actions = new String [size];
+		events = new String[size];
+	}
+	
+	public void AddState(String state, int num)
+	{
+		stateNum.put(state, num);
+		states[num] = state;
+	}
+
 	
 }

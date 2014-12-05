@@ -23,7 +23,7 @@ public class FSM {
 	Map<GHOST, States> state;
 	States current;
 	
-	public FSM() 
+	public FSM()
 	{
 		state = new HashMap<GHOST,States>();
 		
@@ -31,13 +31,16 @@ public class FSM {
 		//hunt,ISGHOSTEDIBLE,HUNT,run	 
         try {
         	BufferedReader br=new BufferedReader(new InputStreamReader(new FileInputStream("data/FSM"+System.getProperty("file.separator")+"FSM.txt")));
-			String input=br.readLine();
-			GHOST ghost = GetGhost(input);
-			state.put(ghost, new States());
+			//String input=br.readLine();
+			GHOST ghost = GHOST.BLINKY;
+			//state.put(ghost, new States());
 			String i;
 			int count =0;
 			while((i=br.readLine())!=null)
 			{
+				
+				int num  =0;
+				
 				if(i.equals("BLINKY")||
 				   i.equals("INKY")||
 				   i.equals("PINKY")||
@@ -45,18 +48,34 @@ public class FSM {
 				{
 					ghost = GetGhost(i);
 					state.put(ghost, new States());
+					
 					count =0;
+				}
+				else if(i.equals("1")||
+						   i.equals("2")||
+						   i.equals("3")||
+						   i.equals("4")||
+						   i.equals("5")||
+						   i.equals("6"))
+				{
+					state.get(ghost).SetSize(Integer.parseInt(i));
 				}
 				else
 				{
 					String h [] =i.split(",");
-					state.get(ghost).SetCurrentState(state.get(ghost).stateNum.get(h[0]));
+					state.get(ghost).AddState(h[0], count);
 					state.get(ghost).events[count] = h[1];
 					state.get(ghost).actions[count] = h[2];
 					state.get(ghost).states[count] = h[3];
 					count ++;
 				}
+				//state.get(ghost).SetCurrentState(state.get(ghost).stateNum.get(h[0]));
 			}
+			
+			state.get(GHOST.BLINKY).SetCurrentState(state.get(GHOST.BLINKY).stateNum.firstEntry().getValue());
+			state.get(GHOST.INKY).SetCurrentState(state.get(GHOST.INKY).stateNum.firstEntry().getValue());
+			state.get(GHOST.PINKY).SetCurrentState(state.get(GHOST.PINKY).stateNum.firstEntry().getValue());
+			state.get(GHOST.SUE).SetCurrentState(state.get(GHOST.SUE).stateNum.firstEntry().getValue());
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
