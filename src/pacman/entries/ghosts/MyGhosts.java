@@ -1,6 +1,8 @@
 package pacman.entries.ghosts;
 
-
+/*Name: Gavin Clarke
+ * Student Code : C00158114
+ * Date: 05/12/2014*/
 import java.util.EnumMap;
 import pacman.controllers.Controller;
 import pacman.game.Constants.GHOST;

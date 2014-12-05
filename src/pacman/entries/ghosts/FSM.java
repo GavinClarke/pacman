@@ -2,7 +2,6 @@ package pacman.entries.ghosts;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.lang.reflect.InvocationTargetException;
@@ -12,7 +11,6 @@ import pacman.actions.States;
 import static pacman.game.Constants.*;
 import pacman.game.Game;
 import pacman.game.Constants.GHOST;
-import pacman.game.internal.Ghost;
 
 
 public class FSM {
@@ -38,8 +36,6 @@ public class FSM {
 			int count =0;
 			while((i=br.readLine())!=null)
 			{
-				
-				int num  =0;
 				
 				if(i.equals("BLINKY")||
 				   i.equals("INKY")||

@@ -1,8 +1,6 @@
 package pacman.actions;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.TreeMap;
 
 import pacman.game.Constants.MOVE;
@@ -50,7 +48,10 @@ public class States {
 			method = cls.getDeclaredMethod(actions[state], paramString);
 			//method.setAccessible(true);
 			hello = method.invoke(obj, ghost,game);
-			System.out.println("state is " + states[state]);
+			if(ghost == GHOST.BLINKY)
+			{
+				//System.out.println("state is " + states[state]);
+			}
 		}
 		else
 		{

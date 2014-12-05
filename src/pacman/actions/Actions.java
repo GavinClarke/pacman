@@ -39,6 +39,13 @@ public class Actions {
 	public MOVE TOLASTPILL(GHOST ghost, Game game)
 	{
 		int i[] = game.getActivePowerPillsIndices();
-		return game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost),i[0],DM.PATH);
+		if(i.length > 0)
+		{
+			return game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost),i[0],DM.PATH);
+		}
+		else
+		{
+			return game.getNextMoveTowardsTarget(game.getGhostCurrentNodeIndex(ghost), game.getPacmanCurrentNodeIndex(), DM.PATH);
+		}
 	}
 }
